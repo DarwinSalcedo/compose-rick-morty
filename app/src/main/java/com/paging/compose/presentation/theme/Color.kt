@@ -1,4 +1,4 @@
-package com.paging.compose.ui.theme
+package com.paging.compose.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.paging.compose.ui.theme
+package com.paging.compose.presentation.theme
 
 import android.app.Activity
 import android.os.Build
