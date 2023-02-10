@@ -1,5 +1,9 @@
 package com.paging.compose.domain.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Character(
     val id: Long = 0,
     val name: String,
@@ -7,8 +11,4 @@ data class Character(
     val status: String,
     val species: String,
     val episode: List<String>
-)
-
-data class DataCharacters(
-    val results: List<Character>? = emptyList()
-)
+) : Parcelable

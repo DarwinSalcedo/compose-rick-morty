@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.paging.compose.domain.model.Character
+import com.paging.compose.presentation.detail.DetailScreen
 import com.paging.compose.presentation.home.HomeScreen
 import com.paging.compose.presentation.home.HomeViewModel
 
@@ -27,11 +28,11 @@ fun Navigation() {
             )
         }
         composable(NavItem.Detail) {
-            val show =
+            val dataCharacter =
                 navController.previousBackStackEntry?.savedStateHandle?.get<Character>("_data")
-            show?.let {
-                /*  DetailScreen(show = it,
-                      onUpClick = { navController.popBackStack() })*/
+            dataCharacter?.let {
+                DetailScreen(data = it,
+                    onUpClick = { navController.popBackStack() })
             }
         }
 
