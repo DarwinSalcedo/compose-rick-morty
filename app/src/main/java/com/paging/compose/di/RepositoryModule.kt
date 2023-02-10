@@ -2,8 +2,8 @@ package com.paging.compose.di
 
 
 import com.paging.compose.domain.network.ApiService
-import com.paging.compose.domain.repositories.characters.CharactersRepository
-import com.paging.compose.domain.repositories.characters.CharactersRepositoryImpl
+import com.paging.compose.domain.repositories.characters.CharactersNetwork
+import com.paging.compose.domain.repositories.characters.CharactersNetworkImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,10 +16,10 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideTvShowsRepository(
+    fun provideCharactersNetworkRepository(
         apiService: ApiService,
-    ): CharactersRepository {
-        return CharactersRepositoryImpl(apiService)
+    ): CharactersNetwork {
+        return CharactersNetworkImpl(apiService)
     }
 
 }

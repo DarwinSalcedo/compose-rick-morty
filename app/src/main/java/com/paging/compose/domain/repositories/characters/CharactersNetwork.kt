@@ -4,8 +4,8 @@ import com.paging.compose.domain.network.Response
 import kotlinx.coroutines.flow.Flow
 import com.paging.compose.domain.model.Character
 
-interface CharactersRepository {
+interface CharactersNetwork {
 
-    suspend fun getList(): Flow<Response<List<Character>>>
+    suspend fun getList(page : Int): Flow<Response<List<Character>>>
 
 }

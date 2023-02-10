@@ -9,7 +9,7 @@ interface ApiService {
 
     @GET("/api/character/?")
     suspend fun getListCharacters(
-        @Query("page") page: String,
+        @Query("page") page: Int,
     ): Characters
 
 }

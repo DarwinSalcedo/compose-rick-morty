@@ -8,22 +8,24 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class CharactersRepositoryImpl @Inject constructor(
+class CharactersNetworkImpl @Inject constructor(
     private val apiService: ApiService,
-) : CharactersRepository {
+) : CharactersNetwork {
 
-    private var currentPage = 1
-    private var cache = mutableListOf<Character>()
 
-    override suspend fun getList(): Flow<Response<List<Character>>> = flow {
+    override suspend fun getList(page: Int): Flow<Response<List<Character>>> = flow {
         emit(Response.Loading)
         val newResult =
-            apiService.getListCharacters(currentPage.toString())
-        currentPage++
-        cache.addAll(newResult.results!!.map {
-            Character(it.id, it.name, it.image, it.status, it.species ?: "", it.episode)
-        })
-        emit(Response.Success(cache))
+            apiService.getListCharacters(page)
+
+        emit(Response.Success(newResult.results!!.map {
+            Character(it.id.toInt(),
+                it.name,
+                it.image,
+                it.status,
+                it.species,
+                page)
+        }))
 
     }.catch { exception ->
         emit(Response.Error(exception))

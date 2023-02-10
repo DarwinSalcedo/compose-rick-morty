@@ -1,11 +1,9 @@
 package com.paging.compose.presentation.home
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,30 +12,36 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemsIndexed
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.paging.compose.domain.model.Character
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CharacterItems(
     onItemClick: (Character) -> Unit,
-    list: List<Character> = emptyList(),
     modifier: Modifier = Modifier,
 ) {
-    LazyVerticalGrid(
-        cells = GridCells.Adaptive(150.dp),
-        contentPadding = PaddingValues(4.dp),
-        modifier = modifier) {
-        items(list.size) {
-            CharacterItem(data = list[it],
-                onClick = { onItemClick(list[it]) },
-                modifier = modifier
-            )
+    val viewModel: HomeViewModel = hiltViewModel()
+
+    val list = viewModel.getListCharacters().collectAsLazyPagingItems()
+
+    LazyColumn {
+        itemsIndexed(list) { _, item ->
+            item?.let {
+                CharacterItem(data = it,
+                    onClick = { onItemClick(it) },
+                    modifier = modifier
+                )
+            }
         }
     }
 }
+
 
 @Composable
 fun CharacterItem(data: Character, onClick: () -> Unit, modifier: Modifier = Modifier) {
