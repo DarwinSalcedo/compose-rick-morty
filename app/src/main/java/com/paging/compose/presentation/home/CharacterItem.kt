@@ -12,9 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.LoadState
-import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -23,13 +21,10 @@ import com.paging.compose.domain.model.Character
 
 @Composable
 fun CharacterItems(
+    list: LazyPagingItems<Character>,
     onItemClick: (Character) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val viewModel: HomeViewModel = hiltViewModel()
-
-    val list = viewModel.getListCharacters().collectAsLazyPagingItems()
-
     LazyColumn {
         itemsIndexed(list) { _, item ->
             item?.let {

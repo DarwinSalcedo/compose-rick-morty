@@ -24,6 +24,8 @@ fun DetailScreen(data: Character, onUpClick: () -> Unit) {
         Column {
             ImageCard(data.image)
             MainTitle(data.name)
+            Text(data.species, style = MaterialTheme.typography.headlineSmall)
+            Text(data.status, style = MaterialTheme.typography.bodyMedium)
         }
     }
 }
