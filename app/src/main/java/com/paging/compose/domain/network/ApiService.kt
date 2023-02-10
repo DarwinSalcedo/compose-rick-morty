@@ -7,7 +7,7 @@ import retrofit2.http.QueryMap
 
 interface ApiService {
 
-    @GET("/character/?")
+    @GET("/api/character/?")
     suspend fun getListCharacters(
         @Query("page") page: String,
     ): Characters
