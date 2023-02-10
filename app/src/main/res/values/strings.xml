@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">compose-paging-rick-morty</string>
+    <string name="title_home">Characters</string>
+</resources>
