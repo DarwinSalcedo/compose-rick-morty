@@ -58,11 +58,12 @@ class CharacterRemoteMediator(
             var endOfPaginationReached = false
             service.getList(page).collect { response ->
                 when (response) {
-                    is Response.Error -> MediatorResult.Error(response.exception)
+                    is Response.Error -> {
+                        throw response.exception
+                    }
                     is Response.Loading -> {}
                     is Response.Success -> {
                         endOfPaginationReached = response.data.isEmpty()
-
                         database.withTransaction {
                             if (loadType == LoadType.REFRESH) {
                                 database.getRemoteKeysDao().clearRemoteKeys()

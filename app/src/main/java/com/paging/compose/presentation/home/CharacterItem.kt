@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemsIndexed
 import coil.compose.AsyncImage
@@ -33,6 +34,13 @@ fun CharacterItems(
                     modifier = modifier
                 )
             }
+        }
+        when (list.loadState.append) {
+            is LoadState.Error -> item {
+                ErrorItem(message = (list.loadState.append as LoadState.Error).error.message.toString())
+            }
+            LoadState.Loading -> item { LoadingItem() }
+            is LoadState.NotLoading -> Unit
         }
     }
 }
